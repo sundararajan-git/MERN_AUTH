@@ -14,8 +14,22 @@ const PORT = process.env.PORT || 8080
 
 // MIDDLEWARES 
 
+// ALLOWED ORGINS
+const whiteList = ["http://localhost:5173/MERN_AUTH/", "https://sundararajan-git.github.io/MERN_AUTH/"]
+// CONDTION APPLY
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (whiteList.indexOf(origin) !== -1 || !origin) {
+            callback(null, true)
+        } else {
+            callback(new Error("Not allowed by CORS"))
+        }
+    },
+    optionSuccessStatus: 200
+}
+
 // FOR ACCESS THE API FROM THE ORIGIN
-app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+app.use(cors(corsOptions))
 
 // FOR ACCESESS THE INCOMING REQUEST FROM THE REQ.BODY
 app.use(express.json())
