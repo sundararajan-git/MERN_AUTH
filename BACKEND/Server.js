@@ -14,22 +14,28 @@ const PORT = process.env.PORT || 8080
 
 // MIDDLEWARES 
 
-// ALLOWED ORGINS
-const whiteList = ["http://localhost:5173/MERN_AUTH/", "https://sundararajan-git.github.io/MERN_AUTH/"]
-// CONDTION APPLY
+// WHITELIST
+const whiteList = [
+    "http://localhost:5173", 
+    "https://sundararajan-git.github.io/MERN_AUTH"
+];
+
+// CORS CONFIGURATION
 const corsOptions = {
     origin: (origin, callback) => {
         if (whiteList.indexOf(origin) !== -1 || !origin) {
-            callback(null, true)
+            callback(null, true);
         } else {
-            callback(new Error("Not allowed by CORS"))
+            callback(new Error("Not allowed by CORS"));
         }
     },
-    optionSuccessStatus: 200
-}
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, // Allow cookies to be sent and received
+    optionsSuccessStatus: 200
+};
 
-// FOR ACCESS THE API FROM THE ORIGIN
-app.use(cors(corsOptions))
+// ENABLE CROS
+app.use(cors(corsOptions));
 
 // FOR ACCESESS THE INCOMING REQUEST FROM THE REQ.BODY
 app.use(express.json())

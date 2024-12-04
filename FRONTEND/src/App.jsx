@@ -55,6 +55,8 @@ const App = () => {
     try {
       const authRes = await axios.get("check-auth");
 
+      console.log(authRes)
+      
       if (authRes?.data?.success) {
         dispatch(updateUser(authRes?.data?.user));
         setConApp((pre) => {
