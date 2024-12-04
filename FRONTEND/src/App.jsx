@@ -45,6 +45,8 @@ const App = () => {
   //  REDUX  USER CONSTROL HOOK
   const dispatch = useDispatch();
 
+  console.log(location)
+  
   // CHECK VALID USER
   useEffect(() => {
     checkAuth();
