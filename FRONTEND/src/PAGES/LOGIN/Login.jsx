@@ -36,7 +36,7 @@ const Login = () => {
 
       if (loginRes?.data?.success) {
         toast.success("Login sucessfull");
-        navigate("/");
+        navigate("/home");
       }
     } catch (err) {
       toast.error(err?.response?.data?.message);

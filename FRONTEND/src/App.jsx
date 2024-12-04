@@ -53,10 +53,12 @@ const App = () => {
   // CHECK AUTH
   const checkAuth = async () => {
     try {
-      const authRes = await axios.get("check-auth");
+      const authRes = await axios.get("check-auth", {
+        withCredentials: true,
+      });
 
-      console.log(authRes)
-      
+      console.log(authRes);
+
       if (authRes?.data?.success) {
         dispatch(updateUser(authRes?.data?.user));
         setConApp((pre) => {
