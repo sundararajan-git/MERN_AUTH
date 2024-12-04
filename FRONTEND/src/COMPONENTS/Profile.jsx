@@ -43,6 +43,7 @@ const Profile = (props) => {
 
       const logRes = await axios.post("logout", {
         email: "sundararajan.sfhl@gmail.com",
+        withCredentials: true,
       });
 
       if (logRes.data.success) {
