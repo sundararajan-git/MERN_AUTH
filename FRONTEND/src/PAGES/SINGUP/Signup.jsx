@@ -38,6 +38,7 @@ const Signup = () => {
         navigate("/verification");
       }
     } catch (err) {
+      console.error(err)
       toast.error(err?.response?.data?.message);
       setControSig((prev) => {
         return { ...prev, btnloading: false };

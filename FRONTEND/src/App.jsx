@@ -65,6 +65,7 @@ const App = () => {
         });
       }
     } catch (err) {
+      console.error(err)
       setConApp((pre) => {
         return { ...pre, isvalid: false, isloading: false };
       });

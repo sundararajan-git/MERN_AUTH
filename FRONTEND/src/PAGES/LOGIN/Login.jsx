@@ -40,6 +40,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (err) {
+      console.error(err)
       toast.error(err?.response?.data?.message);
       setConLog((prev) => {
         return { ...prev, btnloading: false };
