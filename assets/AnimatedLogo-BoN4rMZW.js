@@ -1,0 +1,1 @@
+import{j as e}from"./index-CPBQZ-NW.js";import{l as s}from"./logo-De4Ox70B.js";const a=()=>e.jsxs("div",{className:"flex flex-col gap-6 items-center justify-center min-h-screen bg-white",children:[e.jsx("img",{src:s,alt:"logo",className:"w-[120px] h-[120px] animate-rotateAndColor"}),e.jsx("p",{className:"font-bold uppercase",children:"Nexangle"})]});export{a as default};
