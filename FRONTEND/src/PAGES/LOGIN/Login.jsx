@@ -34,8 +34,6 @@ const Login = () => {
       const loginRes = await axios.post("login", Datajson);
 
       if (loginRes?.data?.success) {
-        const token = loginRes?.data?.user?.token;
-        localStorage.setItem("token", token);
         toast.success("Login sucessfull");
         navigate("/");
       }

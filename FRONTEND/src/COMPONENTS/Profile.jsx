@@ -46,7 +46,6 @@ const Profile = (props) => {
       });
 
       if (logRes.data.success) {
-        localStorage.removeItem("token");
         toast.success("Logout successfuly");
         navigate("/login");
       }
