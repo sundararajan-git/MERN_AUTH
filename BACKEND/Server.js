@@ -27,8 +27,6 @@ const corsOptions = {
             callback(new Error("Not allowed by CORS"));
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Allow cookies to be sent and received
     optionsSuccessStatus: 200
 };
