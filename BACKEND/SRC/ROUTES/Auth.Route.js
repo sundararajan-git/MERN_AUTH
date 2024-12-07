@@ -4,7 +4,6 @@ import { verifyToken } from "../MIDDLEWARE/verifyToken.js"
 
 const router = express.Router()
 
-
 // LIKE PRODUCED ROUTES FOR EACH REQUEST VALIDATION
 router.get("/check-auth", verifyToken , checkAuth)
 

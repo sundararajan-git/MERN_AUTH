@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
     try {
-    
+        // GET TOKEN FROM THE COOKIES
         const token = req?.cookies?.token
 
         // VERIFY THE TOKEN
@@ -15,7 +15,7 @@ export const verifyToken = (req, res, next) => {
         }
 
         req.userId = decoded.userId;
-
+        // VERIFY THE USER ID FROM DATA BASE
         next();
     } catch (err) {
         console.error("Token verification error:", err.message);
