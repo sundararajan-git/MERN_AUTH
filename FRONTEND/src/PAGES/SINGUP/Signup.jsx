@@ -33,8 +33,6 @@ const Signup = () => {
       const Datajson = Object.fromEntries(data);
       const signupRes = await axios.post("signup", Datajson);
 
-      console.log(signupRes?.data);
-
       if (signupRes?.data?.success) {
         toast.success("Sign up sucessfully");
         navigate("/verification");

@@ -6,16 +6,13 @@ import { sendPasswordResetEmail, sendResetSuccessful, sendVerificationMail, send
 
 // FOR NEW USER ONLY 
 export const signup = async (req, res) => {
-
     const { email, password, name } = req.body
-
     try {
 
         // VALIDATE THE REQUIRED FIELDS
         if (!email || !password || !name) {
             throw new Error("All fields required")
         }
-
 
         // CHECK USER IS ALREDY REGISTERD OR NOT
         const userAlreadyExists = await User.findOne({ email })
@@ -31,7 +28,6 @@ export const signup = async (req, res) => {
         const verificationToken = Math.floor(100000 + Math.random() * 900000).toString()
 
         // CREATE USER OBJECT
-
         const user = new User({
             email,
             password: hashedpassword,
@@ -43,16 +39,13 @@ export const signup = async (req, res) => {
 
         await user.save()
 
-        // SET JWT 
-        genrateTokenAndSetCookie(res, user._id)
-
 
         res.status(201).json({
             success: true,
             message: "User created sucessfully",
             user: {
                 ...user._doc,
-                password: undefined
+                password: undefined,
             }
         })
 
@@ -62,7 +55,6 @@ export const signup = async (req, res) => {
         }
 
         await sendVerificationMail(emailDetails)
-
 
     } catch (err) {
         console.error(err, "signup")
@@ -83,7 +75,6 @@ export const verifyEmail = async (req, res) => {
             verificationToken: code,
             verificationTokenExpiresAt: { $gt: Date.now() }
         })
-
 
         if (!user) {
             return res.status(400).json({ success: false, message: "Invlaid or expired verification code" })
@@ -109,7 +100,7 @@ export const verifyEmail = async (req, res) => {
             email: user.email
         }
 
-        await sendWelcome(emailDetails)
+        sendWelcome(emailDetails)
 
     } catch (err) {
         console.error(err, "verifyEmail")
@@ -141,13 +132,13 @@ export const login = async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid Password" })
         }
 
-        genrateTokenAndSetCookie(res, user._id)
+        const token = genrateTokenAndSetCookie(res, user._id)
 
         user.lastlogin = new Date()
 
         await user.save()
 
-        res.status(200).json({ success: true, message: "Logged in successfully", user: { ...user._doc, password: undefined } })
+        res.status(200).json({ success: true, message: "Logged in successfully", user: { ...user._doc, password: undefined, token } })
 
     } catch (err) {
         console.error(err, "login")
@@ -159,7 +150,6 @@ export const login = async (req, res) => {
 // FOR LOGOUT THE USER
 export const logout = async (req, res) => {
     try {
-        res.clearCookie("token")
         res.status(200).json({ success: true, message: "logged out successfully" })
     } catch (err) {
         console.error(err, "logout")
@@ -175,7 +165,6 @@ export const forgetPassword = async (req, res) => {
         if (!email) {
             throw new Error("Email Filed Required")
         }
-
         const user = await User.findOne({ email })
 
         if (!user) {
@@ -196,12 +185,11 @@ export const forgetPassword = async (req, res) => {
 
 
         const emailDetails = {
-            link: `http://localhost:5173/reset-password/${resetToken}`,
+            link: `${process.env.VITE_API_URL}${resetToken}`,
             email: user.email
         }
 
-
-        await sendPasswordResetEmail(emailDetails)
+        sendPasswordResetEmail(emailDetails)
 
     } catch (err) {
         console.error(err, "forgetPassword")
@@ -242,7 +230,7 @@ export const resetPassword = async (req, res) => {
             email: user.email
         }
 
-        await sendResetSuccessful(emailDetails)
+        sendResetSuccessful(emailDetails)
 
     } catch (err) {
         console.error(err, "resetPassword")
@@ -252,16 +240,12 @@ export const resetPassword = async (req, res) => {
 
 
 // CHECK AUTH IS VLAID OR NOT 
-
 export const checkAuth = async (req, res) => {
     try {
-
         const user = await User.findById(req.userId).select("-password")
-
         if (!user) {
-           return res.status(400).json({ success: false, message: "User not found" })
+            return res.status(400).json({ success: false, message: "User not found" })
         }
-
         res.status(200).json({ success: true, user })
 
     } catch (err) {

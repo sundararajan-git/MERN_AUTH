@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// USER DETAILS  FOR AUTHENTICATION
 const userSchema = new mongoose.Schema(
     {
         email: {

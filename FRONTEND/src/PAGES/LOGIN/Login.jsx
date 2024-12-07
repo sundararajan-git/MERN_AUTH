@@ -33,10 +33,11 @@ const Login = () => {
       const Datajson = Object.fromEntries(data);
       const loginRes = await axios.post("login", Datajson);
 
-
       if (loginRes?.data?.success) {
+        const token = loginRes?.data?.user?.token;
+        localStorage.setItem("token", token);
         toast.success("Login sucessfull");
-        navigate("/home");
+        navigate("/");
       }
     } catch (err) {
       toast.error(err?.response?.data?.message);

@@ -2,10 +2,8 @@ import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-import path from "path"
 import authRoutes from "./SRC/ROUTES/Auth.Route.js"
 import { connectDB } from "./SRC/DB/ConnectDB.js"
-
 
 dotenv.config()
 
@@ -16,7 +14,7 @@ const PORT = process.env.PORT || 8080
 
 // WHITELIST
 const whiteList = [
-    "http://localhost:5173", 
+    "http://localhost:5173",
     "https://sundararajan-git.github.io/MERN_AUTH"
 ];
 
@@ -30,6 +28,7 @@ const corsOptions = {
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Allow cookies to be sent and received
     optionsSuccessStatus: 200
 };

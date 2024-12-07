@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 const Profile = (props) => {
   // PROPS
-  const { data, close } = props;
+  const { close } = props;
 
   // USER INFO FROM THE REDUX
   const user = useSelector((state) => {
@@ -42,11 +42,11 @@ const Profile = (props) => {
       });
 
       const logRes = await axios.post("logout", {
-        email: "sundararajan.sfhl@gmail.com",
-        withCredentials: true,
+        email: user?.email,
       });
 
       if (logRes.data.success) {
+        localStorage.removeItem("token");
         toast.success("Logout successfuly");
         navigate("/login");
       }

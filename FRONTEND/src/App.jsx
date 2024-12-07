@@ -4,7 +4,6 @@ import {
   Route,
   Routes,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import axios from "./LIB/axios.js";
@@ -45,8 +44,6 @@ const App = () => {
   //  REDUX  USER CONSTROL HOOK
   const dispatch = useDispatch();
 
-  console.log(location)
-  
   // CHECK VALID USER
   useEffect(() => {
     checkAuth();
@@ -55,11 +52,7 @@ const App = () => {
   // CHECK AUTH
   const checkAuth = async () => {
     try {
-      const authRes = await axios.get("check-auth", {
-        withCredentials: true,
-      });
-
-      console.log(authRes);
+      const authRes = await axios.get("check-auth");
 
       if (authRes?.data?.success) {
         dispatch(updateUser(authRes?.data?.user));
