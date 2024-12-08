@@ -34,7 +34,7 @@ const corsOptions = {
 // ENABLE CROS
 app.use(cors(corsOptions));
 
-// FOR ACCESESS THE INCOMING REQUEST FROM THE REQ.BODY
+// FOR ACCESESS THE INCOMING REQUEST FROM THE REQ BODY
 app.use(express.json())
 
 // FOR ACCESS THE COOKIEES
@@ -42,7 +42,7 @@ app.use(cookieParser())
 
 // AUTH MIDDLEWARE
 app.use("/api/auth", authRoutes)
-
+1
 // APP LISTENING
 app.listen(PORT, () => {
     connectDB()
